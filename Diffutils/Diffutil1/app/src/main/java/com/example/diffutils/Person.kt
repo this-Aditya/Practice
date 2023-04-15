@@ -1,0 +1,3 @@
+package com.example.diffutils
+
+data class Person(val id: Int, val name:String, val age:String )

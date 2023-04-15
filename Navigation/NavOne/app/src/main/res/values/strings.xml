@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NavOne</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="firstfragment">SecondFragment</string>
+    <string name="second">FirstFragment</string>
+</resources>
