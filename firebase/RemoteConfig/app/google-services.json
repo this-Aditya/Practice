@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "680497725490",
+    "project_id": "remote-config-prac-601fd",
+    "storage_bucket": "remote-config-prac-601fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680497725490:android:869c76ca46e945dd43bc2b",
+        "android_client_info": {
+          "package_name": "com.aditya.remoteconfig"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680497725490-4i2m70mf99dkqk84b4kop6dtfjio75ti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwGMxi-W1LdCSUR84sYAR1SrkwJf_liys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680497725490-4i2m70mf99dkqk84b4kop6dtfjio75ti.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
