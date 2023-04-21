@@ -16,6 +16,8 @@ private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private var job1: Job? = null
+    private var job2: Job? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -24,10 +26,35 @@ class MainActivity : AppCompatActivity() {
         binding.btnStart.setOnClickListener {
             startCollector()
         }
+
+        binding.btnCollect2.setOnClickListener {
+            startSecondCollector()
+        }
+
+        binding.btnStop1.setOnClickListener {
+            stopOneCollection()
+        }
+
+        binding.btnStop2.setOnClickListener {
+            stopTwoCollector()
+        }
     }
 
+    //How to stop the collection of streams.
+    // As we know they are cold streams
+    // just cancelling the coroutine they are launched
+    // in will do the job.
+    private fun stopTwoCollector() {
+        job2?.cancel()
+    }
+
+    private fun stopOneCollection() {
+        job1?.cancel()
+    }
+
+
     private fun startCollector() {
-        GlobalScope.launch {
+         job1 = GlobalScope.launch {
             //bufffer() is used to start a new coroutine.
             getPersonInfo().buffer().collect{person->
                 Log.i(TAG, "${person.id}, ${person.name}, ${person.address}")
@@ -37,6 +64,21 @@ class MainActivity : AppCompatActivity() {
             ///you might be wondering what if we don't use buffer() here.
             // In that case total delay will be 6 seconds.
             // As collect block is starting in the same coroutine.
+        }
+    }
+
+    //Yaa this is second collector
+    // this is the magic of flows
+    // it completely works seprately for each of its collector
+    private fun startSecondCollector() {
+         job2 = GlobalScope.launch {
+            //bufffer() is used to start a new coroutine.
+            getPersonInfo().buffer().collect{person->
+                Log.i(TAG, "Second->  ${person.id}, ${person.name}, ${person.address}")
+                //here it is cold flow so producer will stop producing data
+                delay(2000)
+            }
+
         }
     }
 
