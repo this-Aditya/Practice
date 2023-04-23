@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     private fun startCollector() {
          job1 = GlobalScope.launch {
             //bufffer() is used to start a new coroutine.
-            getPersonInfo().buffer().collect{person->
+            getPersonInfo.buffer().collect{person->
                 Log.i(TAG, "${person.id}, ${person.name}, ${person.address}")
                 //here it is cold flow so producer will stop producing data
                 delay(5000)
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     private fun startSecondCollector() {
          job2 = GlobalScope.launch {
             //bufffer() is used to start a new coroutine.
-            getPersonInfo().buffer().collect{person->
+            getPersonInfo.buffer().collect{person->
                 Log.i(TAG, "Second->  ${person.id}, ${person.name}, ${person.address}")
                 //here it is cold flow so producer will stop producing data
                 delay(2000)
@@ -101,16 +101,15 @@ class MainActivity : AppCompatActivity() {
     */
 
 
-fun getPersonInfo(): Flow<Person> {
+
        // By default flow lauches a coroutineScope
-    return flow<Person> {
+    val getPersonInfo = flow<Person> {
         val persons = getPersons()
-        persons.forEach {person->
+        persons.forEach { person ->
             delay(1000)
             //emit is also a suspend function
             emit(person)
         }
-    }
 }
 
 

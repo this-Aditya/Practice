@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap xmlns:android="http://schemas.android.com/apk/res/android">
+<entry>
+    <key>SHOW_UPDATE_DIALOGUE</key>
+    <value>true</value>
+</entry>
+
+<entry>
+    <key>DIALOGUE_TITLE</key>
+    <value>DEFAULT_TITLE</value>
+</entry>
+
+</defaultsMap>
