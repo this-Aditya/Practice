@@ -1,4 +1,4 @@
-package com.aditya.roomcodelab
+package com.aditya.roomcodelab.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

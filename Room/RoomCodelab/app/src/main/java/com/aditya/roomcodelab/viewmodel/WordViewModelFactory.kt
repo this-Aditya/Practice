@@ -1,4 +1,4 @@
-package com.aditya.roomcodelab
+package com.aditya.roomcodelab.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -1,4 +1,4 @@
-package com.aditya.roomcodelab
+package com.aditya.roomcodelab.viewmodel
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
