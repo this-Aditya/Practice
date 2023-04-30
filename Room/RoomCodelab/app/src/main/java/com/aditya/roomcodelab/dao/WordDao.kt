@@ -1,5 +1,6 @@
 package com.aditya.roomcodelab.dao
 
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.aditya.roomcodelab.entity.Word
@@ -13,6 +14,10 @@ interface WordDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertWord(word: Word)
+
+    @WorkerThread
+    @Delete
+    suspend fun deleteWord(word: Word)
 
     @Query("Delete from word_table")
     suspend fun deleteAll()

@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity() {
             override fun onitemClicked(positon: Int) {
                 val intent2 = Intent(this@MainActivity,NewWordActivity::class.java)
                 intent2.putExtra("EXTRA_WORD_DELETE",words[positon])
+                startActivity(intent2)
             }
 
         })
