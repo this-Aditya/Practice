@@ -99,12 +99,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun save(key: String, value: Int, switchState: Boolean) {
-        dataStore.edit { userdata ->
+        dataStore.edit { preferences->
             val prefkey = stringPreferencesKey(key)
             val statekey = "switchState"
             val statePrefKey = booleanPreferencesKey(statekey)
-            userdata[prefkey] = value.toString()
-            userdata[statePrefKey] = switchState
+            preferences[prefkey] = value.toString()
+            preferences[statePrefKey] = switchState
             Log.i(TAG, "Key: $key, Value: $value, switchState: $switchState")
             showToast("User Data is saved locally.")
         }

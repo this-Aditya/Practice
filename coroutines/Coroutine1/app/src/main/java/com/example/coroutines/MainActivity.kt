@@ -1,5 +1,6 @@
 package com.example.coroutines
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -43,18 +44,61 @@ class MainActivity : AppCompatActivity() {
 //        Log.i(TAG, "doCall1: ${Thread.currentThread().name}")
 //    }
 
-        lifecycleScope.launch{
-            val response1 = async{getAnswer1()}
-            val response2 = async{getAnswer2()}
-            Log.i(TAG, response1.await())
-            Log.i(TAG, response2.await())
-        }
+//        lifecycleScope.launch{
+//            val response1 = async{getAnswer1()}
+//            val response2 = async{getAnswer2()}
+//            Log.i(TAG, response1.await())
+//            Log.i(TAG, response2.await())
+//        }
+//        Log.i(TAG, "Before The Coroutine Block ")
+//        lifecycleScope.launch(Dispatchers.Main) {
+//            getAnswer1()
+//            Log.i(TAG, "First Answer got!!")
+//        }
+//        Log.i(TAG, "After  the Coroutine")
+
+//        lifecycleScope.launch {
+//            var i =0
+//            while (isActive){
+//                Log.i(TAG, "onCreate: $i")
+//                i++
+//            }
+//        }
+        Log.i(TAG, "onCreate: ")
     }
 
-    private suspend fun getAnswer1(): String {
-        delay(2000)
-        return  "Answer 1"
+    override fun onStart() {
+        super.onStart()
+        Log.i(TAG, "onStart: ")
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i(TAG, "onResume: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i(TAG, "onPause: ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i(TAG, "onStop: ")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(TAG, "onDestroy: ")
+    }
+
+    private suspend fun getAnswer1() {
+        delay(2000)
+        val context = application.getApplicationContext()
+        Log.i(TAG, "This $this  Context $context, third $applicationContext")
+    }
+    
+
     private suspend fun getAnswer2(): String {
         delay(10000)
         return "Answer 2"
