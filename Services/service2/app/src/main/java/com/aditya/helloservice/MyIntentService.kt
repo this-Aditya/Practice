@@ -24,8 +24,9 @@ class MyIntentService : IntentService("MyIntentService") {
 
     @Deprecated("Deprecated in Java")
     override fun onHandleIntent(intent: Intent?) {
-        var i = 0
-        while (isRunning) {
+        var i = 1
+        isRunning = true
+        while (i in 1..5) {
             i++
             Log.i(TAG, "Service in running $i in thread ${Thread.currentThread().name}")
             Thread.sleep(1000)
