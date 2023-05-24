@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             isStopped = false
             val secondsString = binding.etSeconds.text.toString()
             val seconds = secondsString.toIntOrNull() ?: 10
-             runnable = NewRunnable
+            runnable = NewRunnable(10)
             runnable.seconds = seconds
             runnable.isStopped = isStopped
             Thread(runnable).start()
@@ -39,24 +39,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    inner class NewRunnable(val seconds: Int) : Runnable {
-//        override fun run() {
-//            Log.i(TAG, "Running in thread ${Thread.currentThread().name}")
-//            for (i in 1..seconds) {
-//                if (isStopped) return
-//                if (i == 5) {
-    //This Won't work as UI components can be updated on UI thread only
-    //*  binding.btnstart.text = "50%" */
-    //First approach -> Using mHandler associated with UI thread
-    /** mHandler.post(object : Runnable{
-    override fun run() {
-    binding.btnstart.text = "50%"
-    }
-    })*/
+    inner class NewRunnable(var seconds: Int) : Runnable {
+        var isStopped: Boolean = false
+        override fun run() {
+            Log.i(TAG, "Running in thread ${Thread.currentThread().name}")
+            for (i in 1..seconds) {
+                if (isStopped) return
+                if (i == 5) {
+                    //This Won 't work as UI components can be updated on UI thread only
+                    binding.btnstart.text = "50%"
+                    // First approach -> Using mHandler associated with UI thread
+                    mHandler.post(object : Runnable {
+                        override fun run() {
+                            binding.btnstart.text = "50%"
+                        }
+                    })
+                }
+            }
 
-    //Second approach -> Using Looper associated with mainHandler and
-    // using it with Handler initialised in BACKGROUND thread
-    /*val threadHandler = Handler(Looper.getMainLooper())
+            //Second approach -> Using Looper associated with mainHandler and
+            // using it with Handler initialised in BACKGROUND thread
+            /*val threadHandler = Handler(Looper.getMainLooper())
     threadHandler.post(object : Runnable{
         override fun run() {
             binding.btnstart.text = "50%"
@@ -65,8 +68,8 @@ class MainActivity : AppCompatActivity() {
     })*/
 
 
-    //Third Approach -> Using a Predefined function
-    //runOnUiThread
+            //Third Approach -> Using a Predefined function
+            //runOnUiThread
 
 //                    runOnUiThread(object : Runnable{
 //                        override fun run() {
@@ -82,11 +85,11 @@ class MainActivity : AppCompatActivity() {
 //        }
 //    }
 
-/**
- * Second way through which runnable should be implemented
- * But This is not recommended.
- *
- */
+            /**
+             * Second way through which runnable should be implemented
+             * But This is not recommended.
+             *
+             */
 //    object NewRunnable : Runnable {
 //        var seconds: Int = 0
 //        var isStopped: Boolean = false
@@ -101,9 +104,11 @@ class MainActivity : AppCompatActivity() {
 //          }
 //        }
 //
-//        private fun updateUI() {
-//            Log.i(TAG, "updateUI")
-//        }
+        }
+            private fun updateUI() {
+            Log.i(TAG, "updateUI")
+        }
 //
-//    }
-//}
+
+    }
+}
