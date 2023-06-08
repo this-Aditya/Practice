@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "865279780150",
+    "project_id": "sleep-project-b33c0",
+    "storage_bucket": "sleep-project-b33c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865279780150:android:6d749d54b48028140dff97",
+        "android_client_info": {
+          "package_name": "com.aditya.sleep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865279780150-osoi4nvno7e01bmplc1heb8skcii50t5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD-qKrgioPpSib6qDv2Pi5HjE79nVChsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865279780150-osoi4nvno7e01bmplc1heb8skcii50t5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

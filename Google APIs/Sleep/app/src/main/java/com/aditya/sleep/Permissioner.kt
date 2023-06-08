@@ -25,11 +25,13 @@ class Permissioner {
                     permission
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
+                Log.d(TAG, "All permissions not granted yet!!")
                 permissionsToRequest.add(permission)
             }
         }
 
         if (permissionsToRequest.isEmpty()) {
+            Log.i(TAG, "All permissions granted")
             // All permissions are already granted
         } else {
             val shouldShowRationale = permissionsToRequest.any {
@@ -37,9 +39,11 @@ class Permissioner {
             }
 
             if (shouldShowRationale) {
+                Log.i(TAG, "Showing Rationale ")
                 Toast.makeText(context, "Permission not granted.", Toast.LENGTH_SHORT).show()
                 showAlertDialogue(context, permissionsToRequest.toTypedArray(), launcher, message)
             } else {
+                Log.i(TAG, "Requesting permissions first time.")
                 launcher.launch(permissionsToRequest.toTypedArray())
             }
         }

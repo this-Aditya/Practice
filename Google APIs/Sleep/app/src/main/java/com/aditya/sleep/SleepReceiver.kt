@@ -8,6 +8,7 @@ import android.os.Environment
 import android.util.Log
 import com.aditya.sleep.models.SleepClassify
 import com.aditya.sleep.models.SleepSegment
+import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.SleepClassifyEvent
 import com.google.android.gms.location.SleepSegmentEvent
 import java.io.File
