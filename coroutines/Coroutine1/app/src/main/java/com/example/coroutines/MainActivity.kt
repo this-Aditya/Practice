@@ -20,29 +20,32 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val job =GlobalScope.launch(Dispatchers.Main){
-//            val time = measureTimeMillis {
-//            val job1 = async { doCall1()}
-//            val job2 = async { doCall2()}
-//                job1.join()
-//                job2.join()
-//        }
-//
-//           Log.i(TAG, "Time taken is $time")
-//
-//       }
-//
-//    }
-//
-//    private suspend fun doCall2() {
-//        delay(3000)
-//        Log.i(TAG, "doCall2: ${Thread.currentThread().name}")
-//    }
-//
-//    private suspend fun doCall1() {
-//        delay(3000)
-//        Log.i(TAG, "doCall1: ${Thread.currentThread().name}")
-//    }
+
+        val job = GlobalScope.launch(Dispatchers.Main) {
+            val time = measureTimeMillis {
+                val d1 = async {
+                    doCall1()
+                }
+                val d2 = async {
+                    doCall2()
+                }
+                d1.await()
+                d2.await()
+            }
+            Log.i(TAG, "time")
+        }
+
+    }
+
+    private suspend fun doCall2() {
+        delay(3000)
+        Log.i(TAG, "doCall2: ${Thread.currentThread().name}")
+    }
+
+    private suspend fun doCall1() {
+        delay(3000)
+        Log.i(TAG, "doCall1: ${Thread.currentThread().name}")
+    }
 
 //        lifecycleScope.launch{
 //            val response1 = async{getAnswer1()}
@@ -64,8 +67,8 @@ class MainActivity : AppCompatActivity() {
 //                i++
 //            }
 //        }
-        Log.i(TAG, "onCreate: ")
-    }
+//        Log.i(TAG, "onCreate: ")
+//    }
 
     override fun onStart() {
         super.onStart()
@@ -97,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         val context = application.getApplicationContext()
         Log.i(TAG, "This $this  Context $context, third $applicationContext")
     }
-    
+
 
     private suspend fun getAnswer2(): String {
         delay(10000)

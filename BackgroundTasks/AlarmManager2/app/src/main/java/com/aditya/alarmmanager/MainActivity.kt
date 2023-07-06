@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity(), TimePickerDialog.OnTimeSetListener {
         binding.btnCancelAlarm.setOnClickListener {
             cancelAlarm()
         }
-
     }
 
     private fun cancelAlarm() {
