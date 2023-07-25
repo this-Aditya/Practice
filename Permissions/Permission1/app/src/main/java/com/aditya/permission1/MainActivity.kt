@@ -3,34 +3,36 @@ package com.aditya.permission1
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.aditya.permission1.databinding.ActivityMainBinding
 
 private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        requestPermissions()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.btnForeground.setOnClickListener {
+            requestPermissions()
+        }
     }
 
     //When you ask for multiple permissions at an instance
-        @RequiresApi(Build.VERSION_CODES.Q)
         private val permissions = arrayOf(
-            Manifest.permission.ACTIVITY_RECOGNITION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+//            Manifest.permission.ACTIVITY_RECOGNITION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_BACKGROUND_LOCATION
     )
 
     private val permissionsLauncher: ActivityResultLauncher<Array<String>> =
@@ -41,16 +43,15 @@ class MainActivity : AppCompatActivity() {
     private fun handlePermissionsResult(permissions: Map<String, Boolean>) {
         for ((permission, isGranted) in permissions) {
             when (isGranted) {
-                true -> Log.i(TAG, "Permission Granted: $permission")
-                false -> Log.i(TAG, "Permission denied: $permission")
+                true -> Log.w(TAG, "Permission Granted: $permission")
+                false -> Log.w(TAG, "Permission denied: $permission")
             }
         }
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     private fun requestPermissions() {
-        val message = "Permissions are required for proper functioning of the application. Please grant these."
+        val message = "Permissions are required for proper functioning of the application. Please grant these permissions."
         val permissionsToRequest = mutableListOf<String>()
         for (permission in permissions) {
             if (ContextCompat.checkSelfPermission(
@@ -58,39 +59,46 @@ class MainActivity : AppCompatActivity() {
                     permission
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
+                Log.w(TAG, "permission not granted yet for $permission")
                 permissionsToRequest.add(permission)
             }
         }
 
         if (permissionsToRequest.isEmpty()) {
-            // All permissions are already granted
-        } else {
+                // All permissions are already granted
+            Log.w(TAG, "All permissions are granted.", )
+                } else {
             val shouldShowRationale = permissionsToRequest.any {
                 ActivityCompat.shouldShowRequestPermissionRationale(this, it)
             }
 
             if (shouldShowRationale) {
-                Toast.makeText(this, "Permission not granted.", Toast.LENGTH_SHORT).show()
-                showAlertDialogue(this, permissionsToRequest.toTypedArray(), permissionsLauncher, message)
+                Toast.makeText(this, "Permission not granted, showing rationale", Toast.LENGTH_SHORT).show()
+                message.showAlertDialogue(
+                    this,
+                    permissionsToRequest.toTypedArray(),
+                    permissionsLauncher
+                )
             } else {
+                Log.w(TAG, "requesting permission $permissionsToRequest, first time.", )
                 permissionsLauncher.launch(permissionsToRequest.toTypedArray())
             }
         }
     }
-    private fun showAlertDialogue(
+    private fun String.showAlertDialogue(
         context: Activity,
         permissions: Array<String>,
-        launcher: ActivityResultLauncher<Array<String>>,
-        message: String
+        launcher: ActivityResultLauncher<Array<String>>
     ) {
         android.app.AlertDialog.Builder(context).apply {
             setTitle("Need permissions to function")
-            setMessage(message)
+            setMessage(this@showAlertDialogue)
             setPositiveButton("Yes") { _, _ ->
                 launcher.launch(permissions) // Trigger the permission request
+                Log.w(TAG, "Triggered the permission requests.")
             }
             setNegativeButton("No") { _, _ ->
-                Log.i(TAG, "Permission denied.")
+                Log.w(TAG, "Permission denied.")
             }
         }.create().show()
     }
@@ -134,7 +142,7 @@ private val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ActivityCompat.checkSelfPermission(
                 this, permission
             ) == PackageManager.PERMISSION_GRANTED -> {
-                Log.i(TAG, "Permission granted,")
+                Log.w(TAG, "Permission granted,")
             }
 
             ActivityCompat.shouldShowRequestPermissionRationale(this, permission) == true -> {
@@ -142,7 +150,7 @@ private val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             }
 
             else -> {
-                Log.i(TAG, "Permission not asked yet!")
+                Log.w(TAG, "Permission not asked yet!")
             requestPermissionLauncher.launch(permission)
             }
         }

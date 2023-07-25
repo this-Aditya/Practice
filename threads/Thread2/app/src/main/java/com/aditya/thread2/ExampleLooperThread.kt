@@ -19,7 +19,7 @@ class ExampleLooperThread: Thread() {
     override fun run() {
         Looper.prepare()
         looper = Looper.myLooper()
-        handler = Handler()
+        handler = Handler(looper!!)
         Looper.loop()
 
         Log.i(TAG, "End of run.")
