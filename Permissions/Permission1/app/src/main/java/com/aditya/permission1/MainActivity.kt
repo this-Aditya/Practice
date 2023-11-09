@@ -3,11 +3,13 @@ package com.aditya.permission1
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -18,12 +20,17 @@ private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btnForeground.setOnClickListener {
             requestPermissions()
+        }
+        binding.btnBackground.setOnClickListener {
+            Log.i(TAG, "Requesting permission for ACTIVITY_RECOGNITION!!|| Should Show Rationale!!: ${ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACTIVITY_RECOGNITION)}")
+            requestPermissions(arrayOf( Manifest.permission.ACTIVITY_RECOGNITION), 100)
         }
     }
 
