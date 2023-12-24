@@ -88,7 +88,7 @@ class LocationActivity : AppCompatActivity() {
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
-        ) {
+        )  {
             Log.i(TAG, "checkLocationPermissions: outerIf() location permission not granted")
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(

@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<defaultsMap xmlns:android="http://schemas.android.com/apk/res/android">
-<entry>
-    <key>SHOW_UPDATE_DIALOGUE</key>
-    <value>true</value>
-</entry>
-
-<entry>
-    <key>DIALOGUE_TITLE</key>
-    <value>DEFAULT_TITLE</value>
-</entry>
-
+<defaultsMap>
+    <entry>
+        <key>contact_email</key>
+        <value>localconfig@firebase.com</value>
+    </entry>
+    <entry>
+        <key>contact_phone</key>
+        <value>123456789</value>
+    </entry>
+    <entry>
+        <key>should_modify_on_release</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>target_android_version</key>
+        <value>13</value>
+    </entry>
 </defaultsMap>
