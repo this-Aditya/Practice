@@ -34,13 +34,25 @@ class MainActivity : AppCompatActivity() {
 //        }
 //    }
 
+    class MyHandlerThread(name: String, priority: Int) : HandlerThread(name, priority) {
+        override fun onLooperPrepared() {
+            Log.i(TAG, "onLooperPrepared: ")
+        }
+
+        override fun run() {
+            super.run()
+            Log.i(TAG, "run: completed!!")
+        }
+        
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Log.i(TAG, "Before starting the program!!")
         var firstHandler: Handler? = null
-        val firstThread: HandlerThread = HandlerThread("Handler_Thread", THREAD_PRIORITY_BACKGROUND ).
+        val firstThread: HandlerThread = MyHandlerThread("Handler_Thread", THREAD_PRIORITY_BACKGROUND ).
         apply {
             Log.i(TAG, "Thread started!!")
         }

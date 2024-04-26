@@ -9,8 +9,9 @@ import android.content.Intent
 import android.os.Build
 import android.util.Log
 import org.root.bluetooth1.MainActivity.Companion.bluetoothAdapter
+import org.root.bluetooth1.MainActivity.Companion.toBondState
 
-private const val TAG = "BluetoothReceiver"
+private const val TAG = "MainActivityRec"
 
 class BluetoothReceiver : BroadcastReceiver() {
 
@@ -35,13 +36,13 @@ class BluetoothReceiver : BroadcastReceiver() {
                 device?.let { _ ->
                     Log.i(
                         TAG,
-                        "New device Added-> Name: ${device.name}, Mac: ${device.address}, bluetoothClass: ${device.bluetoothClass},"
+                        "New device Added-> Name: ${device.name}, Mac: ${device.address}, bluetoothClass: ${device.bluetoothClass}, Paired State: ${device.bondState.toBondState()}"
                     )
                 }
                 Log.i(TAG, "")
                 Log.i(TAG, "Bonded Devices List: ")
                 bondedDevices?.forEach {
-                    Log.i(TAG, "Name: ${it.name}, Mac: ${it.address}, Class: ${it.bluetoothClass}, Type: ${it.type}, BoundState: ${it.bondState}")
+                    Log.i(TAG, "Name: ${it.name}, Mac: ${it.address}, Class: ${it.bluetoothClass}, Type: ${it.type}, BoundState: ${it.bondState.toBondState()}")
                 }
             }
             BluetoothAdapter.ACTION_DISCOVERY_STARTED -> {

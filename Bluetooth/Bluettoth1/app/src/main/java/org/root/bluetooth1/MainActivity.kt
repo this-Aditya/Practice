@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothDevice.ACTION_FOUND
 import android.bluetooth.BluetoothManager
 import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
@@ -18,7 +19,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import org.root.bluetooth1.databinding.ActivityMainBinding
 
 private const val TAG = "MainActivity"
@@ -44,6 +44,16 @@ class MainActivity : AppCompatActivity() {
             handleResult(permissionResult)
         }
 
+    private val manualBluetoothTurning = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {result ->
+        if (result.resultCode == RESULT_OK) {
+            Log.i(TAG, "Bluetooth turned on manually")
+        } else {
+            Log.i(TAG, "Bluetooth not turned on manually")
+        }
+    }
+
     private fun handleResult(permissionResult: Map<String, Boolean>?) {
             permissionResult?.forEach {
                 if (it.value) {
@@ -64,6 +74,11 @@ class MainActivity : AppCompatActivity() {
 
         doCheckConnectivity()
 
+        binding.btnTurnOnBluettoth.setOnClickListener {
+            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            manualBluetoothTurning.launch(enableBtIntent)
+        }
+
     }
 
     @SuppressLint("MissingPermission")
@@ -78,6 +93,9 @@ class MainActivity : AppCompatActivity() {
         pairedDevices?.forEach { device ->
             val deviceName = device.name
             val deviceMacAddress = device.address
+            val bonded = device.bondState.toBondState()
+            Log.i(TAG, "Paired Devices")
+            Log.i(TAG, "Name: $deviceName, MacAddress: $deviceMacAddress, pairedState: $bonded")
         }
 
         binding.btnSearchDevices.setOnClickListener {
@@ -141,7 +159,17 @@ class MainActivity : AppCompatActivity() {
         val Context.bluetoothAdapter: BluetoothAdapter
             get() = (getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
 
+        fun Int.toBondState() = when(this) {
+            10 -> PairedState.UNPAIRED
+            11 -> PairedState.PAIRING
+            12 -> PairedState.PAIRED
+            else -> null
+        }
     }
+}
+
+enum class PairedState {
+    UNPAIRED, PAIRED, PAIRING
 }
 
 

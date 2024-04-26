@@ -7,10 +7,10 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn_search_devices"
+        android:id="@+id/btnStartService"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search Devices"
+        android:text="StartService"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -19,14 +19,14 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <Button
-        android:id="@+id/btnTurnOnBluettoth"
+        android:id="@+id/btnStartActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Turn on Bluetooth"
-        app:layout_constraintBottom_toTopOf="@+id/btn_search_devices"
+        android:text="Start New Activity"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStartService"
         app:layout_constraintVertical_bias="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
