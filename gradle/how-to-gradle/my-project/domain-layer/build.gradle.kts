@@ -1,14 +1,7 @@
 plugins {
-    id("java-library")
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
+    id("my-java-library")
 }
 
 dependencies {
-    implementation(project(":domain-layer"))
     implementation("org.apache.commons:commons-lang3:3.9")
 }

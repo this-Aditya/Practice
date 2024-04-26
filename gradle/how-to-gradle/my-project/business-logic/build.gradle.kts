@@ -1,11 +1,5 @@
 plugins {
-    id("java-library")
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
+    id("my-java-library")
 }
 
 dependencies {
