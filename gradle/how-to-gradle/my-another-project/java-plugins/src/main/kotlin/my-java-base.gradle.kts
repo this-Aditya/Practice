@@ -1,6 +1,3 @@
-import gradle.kotlin.dsl.accessors._550befb596988a36a92ff8eedca87611.build
-import gradle.kotlin.dsl.accessors._550befb596988a36a92ff8eedca87611.check
-
 plugins {
     id ("java")
     id ("checkstyle")
@@ -17,6 +14,14 @@ tasks.build {
 
 tasks.check {
     group = myBuildGroup
+    description = "Run tasks (including tests)."
+}
+
+tasks.register("qualityCheck") {
+    group = myBuildGroup
+    dependsOn(tasks.classes, tasks.checkstyleMain)
+//    dependsOn(tasks.testClasses, tasks.checkstyleTest)
+    description = "Run tasks (excluding tests)."
 }
 
 java {
